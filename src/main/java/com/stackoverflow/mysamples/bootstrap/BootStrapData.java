@@ -1,6 +1,6 @@
 package com.stackoverflow.mysamples.bootstrap;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import com.stackoverflow.mysamples.entity.Cat;
 import com.stackoverflow.mysamples.entity.CustomPet;
 import com.stackoverflow.mysamples.entity.Dog;
+import com.stackoverflow.mysamples.entity.Owner;
 import com.stackoverflow.mysamples.entity.PetPersistable;
+import com.stackoverflow.mysamples.repository.OwnerRepository;
 import com.stackoverflow.mysamples.repository.PetRepository;
 
 /**
@@ -18,9 +20,11 @@ import com.stackoverflow.mysamples.repository.PetRepository;
 public class BootStrapData implements CommandLineRunner {
 
   private final PetRepository petRepository;
+  private final OwnerRepository ownerRepository;
 
-  public BootStrapData(PetRepository petRepository) {
+  public BootStrapData(PetRepository petRepository, OwnerRepository ownerRepository) {
     this.petRepository = petRepository;
+    this.ownerRepository = ownerRepository;
   }
 
   @Override
@@ -36,10 +40,21 @@ public class BootStrapData implements CommandLineRunner {
     var customPet = new CustomPet();
     customPet.setName("Smoking kills");
 
-    petRepository.saveAll(List.of(cat, dog, customPet));
+    Set<PetPersistable> pets = Set.of(cat, dog, customPet);
+
+    //    petRepository.saveAll(pets);
+
+    var owner = new Owner();
+    //    owner.setLastName("Doe");
+    owner.setFirstName("John");
+    owner.setPets(pets);
+
+    ownerRepository.save(owner);
 
     System.out.println("Database was successfully initialized with data: ");
     System.out.println(cat);
     System.out.println(dog);
+    System.out.println(customPet);
+    System.out.println(owner);
   }
 }

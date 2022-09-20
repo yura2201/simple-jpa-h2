@@ -3,10 +3,16 @@ package com.stackoverflow.mysamples.entity;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PostLoad;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Formula;
@@ -19,10 +25,20 @@ import com.stackoverflow.mysamples.dictionary.PetTypes;
 @MappedSuperclass
 public abstract class Pet {
 
+  @Transient
+  public String ownerLastName;
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "r_owner_id", referencedColumnName = "id")
+  private Owner owner;
   @Id
   @Column(name = "id", nullable = false)
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @PostLoad
+  void initTransient() {
+    ownerLastName = Optional.ofNullable(getOwner()).map(Owner::getLastName).orElse("'Doe'");
+  }
 
   @Column
   private String name;
@@ -79,6 +95,18 @@ public abstract class Pet {
     return initAndGetPetType();
   }
 
+  public Owner getOwner() {
+    return owner;
+  }
+
+  public void setOwner(Owner owner) {
+    this.owner = owner;
+  }
+
+  public String getOwnerLastName() {
+    return ownerLastName;
+  }
+
   private PetTypes initAndGetPetType() {
     return Optional.ofNullable(typeCode).map(code -> {
       if (Objects.nonNull(type)) {
@@ -90,11 +118,39 @@ public abstract class Pet {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+
+    Pet pet = (Pet) o;
+
+    if (getId() != null ? !getId().equals(pet.getId()) : pet.getId() != null)
+      return false;
+    if (getName() != null ? !getName().equals(pet.getName()) : pet.getName() != null)
+      return false;
+    if (getAge() != null ? !getAge().equals(pet.getAge()) : pet.getAge() != null)
+      return false;
+    return getTypeCode() != null ? getTypeCode().equals(pet.getTypeCode()) : pet.getTypeCode() == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getId() != null ? getId().hashCode() : 0;
+    result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+    result = 31 * result + (getAge() != null ? getAge().hashCode() : 0);
+    result = 31 * result + (getTypeCode() != null ? getTypeCode().hashCode() : 0);
+    return result;
+  }
+
+  @Override
   public String toString() {
     return new StringJoiner(", ", Pet.class.getSimpleName() + "[", "]")
         .add("id=" + getId())
         .add("name='" + getName() + "'")
         .add("age=" + getAge())
+        .add("ownerLastName=" + getOwnerLastName())
         .add("typeCode=" + getTypeCode())
         .add("typeName='" + getTypeName() + "'")
         .add("type=" + getType())
