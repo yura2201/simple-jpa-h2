@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * Created by Yuriy Tsarkov on 19.09.2022
  */
 @SpringBootTest
-class ZooServiceTest {
+class ZooServiceIntegrationTest {
 
   @Autowired
   private ZooService zooService;

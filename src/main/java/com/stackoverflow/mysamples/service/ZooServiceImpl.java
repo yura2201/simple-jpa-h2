@@ -1,7 +1,10 @@
 package com.stackoverflow.mysamples.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.stackoverflow.mysamples.entity.PetPersistable;
 import com.stackoverflow.mysamples.repository.OwnerRepository;
 import com.stackoverflow.mysamples.repository.PetRepository;
 
@@ -31,5 +34,10 @@ public class ZooServiceImpl implements ZooService {
     System.out.println(pet2);
     System.out.println(pet);
     System.out.println(owner);
+  }
+
+  @Override
+  public List<PetPersistable> getPets() {
+    return petRepository.findAll();
   }
 }
