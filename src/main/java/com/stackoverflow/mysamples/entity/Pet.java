@@ -30,6 +30,10 @@ public abstract class Pet {
   @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinColumn(name = "r_owner_id", referencedColumnName = "id")
   private Owner owner;
+
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "r_toy_id", referencedColumnName = "id")
+  private Toy favoriteToy;
   @Id
   @Column(name = "id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -101,6 +105,14 @@ public abstract class Pet {
 
   public void setOwner(Owner owner) {
     this.owner = owner;
+  }
+
+  public Toy getFavoriteToy() {
+    return favoriteToy;
+  }
+
+  public void setFavoriteToy(Toy favoriteToy) {
+    this.favoriteToy = favoriteToy;
   }
 
   public String getOwnerLastName() {

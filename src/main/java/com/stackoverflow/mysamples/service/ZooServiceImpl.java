@@ -1,10 +1,15 @@
 package com.stackoverflow.mysamples.service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
-import com.stackoverflow.mysamples.entity.PetPersistable;
+import com.stackoverflow.mysamples.entity.Toy;
 import com.stackoverflow.mysamples.repository.OwnerRepository;
 import com.stackoverflow.mysamples.repository.PetRepository;
 
@@ -23,21 +28,22 @@ public class ZooServiceImpl implements ZooService {
   }
 
   @Override
-  public void interact() {
-    var pet1 = petRepository.findById(1L).get();
-    var pet2 = petRepository.findById(2L).get();
-    var pet = petRepository.findById(3L).get();
-    //    petRepository.saveAll(List.of(pet1, pet2, newPet));
-    var owner = ownerRepository.findById(1L).get();
-
-    System.out.println(pet1);
-    System.out.println(pet2);
-    System.out.println(pet);
-    System.out.println(owner);
+  public List<Toy> getToysNameAsc(Collection<Long> ids) {
+    return petRepository.findDistinctByIdIn(ids, Sort.by(new Order(Direction.ASC, "favoriteToy.name")));
   }
 
   @Override
-  public List<PetPersistable> getPets() {
-    return petRepository.findAll();
+  public List<Toy> getToysNameDesc(Collection<Long> ids) {
+    return petRepository.findDistinctByIdIn(ids, Sort.by(new Order(Direction.DESC, "favoriteToy.name")));
+  }
+
+  @Override
+  public Set<Toy> getToysSetNameAsc(Collection<Long> ids) {
+    return petRepository.findDistinctSetByIdIn(ids, Sort.by(new Order(Direction.ASC, "favoriteToy.name")));
+  }
+
+  @Override
+  public Set<Toy> getToysSetNameDesc(Collection<Long> ids) {
+    return petRepository.findDistinctSetByIdIn(ids, Sort.by(new Order(Direction.DESC, "favoriteToy.name")));
   }
 }
