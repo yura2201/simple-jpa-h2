@@ -10,6 +10,7 @@ import com.stackoverflow.mysamples.entity.CustomPet;
 import com.stackoverflow.mysamples.entity.Dog;
 import com.stackoverflow.mysamples.entity.Owner;
 import com.stackoverflow.mysamples.entity.PetPersistable;
+import com.stackoverflow.mysamples.entity.Toy;
 import com.stackoverflow.mysamples.repository.OwnerRepository;
 import com.stackoverflow.mysamples.repository.PetRepository;
 
@@ -32,13 +33,16 @@ public class BootStrapData implements CommandLineRunner {
     PetPersistable cat = new Cat();
     cat.setName("Oscar");
     cat.setAge(6);
+    cat.setFavoriteToy(new Toy().setName("Bone").setMadeOf("bone"));
 
     PetPersistable dog = new Dog();
     dog.setName("Lucky");
     dog.setAge(10);
+    dog.setFavoriteToy(new Toy().setName("Cat").setMadeOf("wool"));
 
     var customPet = new CustomPet();
     customPet.setName("Smoking kills");
+    customPet.setFavoriteToy(new Toy().setName("Voodoo").setMadeOf("cotton"));
 
     Set<PetPersistable> pets = Set.of(cat, dog, customPet);
 
