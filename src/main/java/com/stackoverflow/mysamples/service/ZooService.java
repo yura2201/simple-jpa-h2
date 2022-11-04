@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import com.stackoverflow.mysamples.entity.PetPersistable;
 import com.stackoverflow.mysamples.entity.Toy;
 
 /**
@@ -11,6 +12,10 @@ import com.stackoverflow.mysamples.entity.Toy;
  */
 public interface ZooService {
 
+  void interact();
+
+  List<PetPersistable> getPets();
+  
   List<Toy> getToysNameAsc(Collection<Long> ids);
 
   List<Toy> getToysNameDesc(Collection<Long> ids);

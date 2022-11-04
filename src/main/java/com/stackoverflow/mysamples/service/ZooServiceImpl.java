@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
+import com.stackoverflow.mysamples.entity.PetPersistable;
 import com.stackoverflow.mysamples.entity.Toy;
 import com.stackoverflow.mysamples.repository.OwnerRepository;
 import com.stackoverflow.mysamples.repository.PetRepository;
@@ -18,6 +19,25 @@ import com.stackoverflow.mysamples.repository.PetRepository;
  */
 @Service
 public class ZooServiceImpl implements ZooService {
+
+  @Override
+  public void interact() {
+    var pet1 = petRepository.findById(1L).get();
+    var pet2 = petRepository.findById(2L).get();
+    var pet = petRepository.findById(3L).get();
+    //    petRepository.saveAll(List.of(pet1, pet2, newPet));
+    var owner = ownerRepository.findById(1L).get();
+
+    System.out.println(pet1);
+    System.out.println(pet2);
+    System.out.println(pet);
+    System.out.println(owner);
+  }
+
+  @Override
+  public List<PetPersistable> getPets() {
+    return petRepository.findAll();
+  }
 
   private final PetRepository petRepository;
   private final OwnerRepository ownerRepository;

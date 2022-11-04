@@ -27,6 +27,11 @@ class ZooServiceIntegrationTest {
   private ZooService zooService;
 
   @Test
+  void interact() {
+    zooService.interact();
+  }
+
+  @Test
   void testOrder() {
     List<Toy> toysAsc = zooService.getToysNameAsc(List.of(1L, 3L));
     List<Toy> toysDesc = zooService.getToysNameDesc(List.of(1L, 3L));
