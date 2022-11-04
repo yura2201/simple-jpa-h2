@@ -34,6 +34,7 @@ public abstract class Pet {
   @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinColumn(name = "r_toy_id", referencedColumnName = "id")
   private Toy favoriteToy;
+
   @Id
   @Column(name = "id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -131,19 +132,24 @@ public abstract class Pet {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
+    if (this == o) {
       return true;
-    if (o == null || getClass() != o.getClass())
+    }
+    if (o == null || getClass() != o.getClass()) {
       return false;
+    }
 
     Pet pet = (Pet) o;
 
-    if (getId() != null ? !getId().equals(pet.getId()) : pet.getId() != null)
+    if (getId() != null ? !getId().equals(pet.getId()) : pet.getId() != null) {
       return false;
-    if (getName() != null ? !getName().equals(pet.getName()) : pet.getName() != null)
+    }
+    if (getName() != null ? !getName().equals(pet.getName()) : pet.getName() != null) {
       return false;
-    if (getAge() != null ? !getAge().equals(pet.getAge()) : pet.getAge() != null)
+    }
+    if (getAge() != null ? !getAge().equals(pet.getAge()) : pet.getAge() != null) {
       return false;
+    }
     return getTypeCode() != null ? getTypeCode().equals(pet.getTypeCode()) : pet.getTypeCode() == null;
   }
 

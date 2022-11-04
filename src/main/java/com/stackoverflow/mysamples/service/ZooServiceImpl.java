@@ -20,6 +20,14 @@ import com.stackoverflow.mysamples.repository.PetRepository;
 @Service
 public class ZooServiceImpl implements ZooService {
 
+  private final PetRepository petRepository;
+  private final OwnerRepository ownerRepository;
+
+  public ZooServiceImpl(PetRepository petRepository, OwnerRepository ownerRepository) {
+    this.petRepository = petRepository;
+    this.ownerRepository = ownerRepository;
+  }
+
   @Override
   public void interact() {
     var pet1 = petRepository.findById(1L).get();
@@ -37,14 +45,6 @@ public class ZooServiceImpl implements ZooService {
   @Override
   public List<PetPersistable> getPets() {
     return petRepository.findAll();
-  }
-
-  private final PetRepository petRepository;
-  private final OwnerRepository ownerRepository;
-
-  public ZooServiceImpl(PetRepository petRepository, OwnerRepository ownerRepository) {
-    this.petRepository = petRepository;
-    this.ownerRepository = ownerRepository;
   }
 
   @Override
