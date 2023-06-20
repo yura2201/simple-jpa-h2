@@ -172,6 +172,7 @@ public abstract class Pet {
         .add("typeCode=" + getTypeCode())
         .add("typeName='" + getTypeName() + "'")
         .add("type=" + getType())
+        .add("favoriteToy=" + getFavoriteToy())
         .toString();
   }
 }

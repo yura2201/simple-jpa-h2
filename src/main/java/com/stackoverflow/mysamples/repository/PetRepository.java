@@ -2,6 +2,7 @@ package com.stackoverflow.mysamples.repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.domain.Sort;
@@ -26,4 +27,11 @@ public interface PetRepository extends CrudRepository<PetPersistable, Long> {
 
   @Query("select distinct p.favoriteToy from PetPersistable p where p.id in :ids")
   Set<Toy> findDistinctSetByIdIn(Collection<Long> ids, Sort sort);
+
+  boolean existsByOwnerIsNull();
+
+  @Query(nativeQuery = true,
+      value = "select p.*, (case type_code when 1 then 'Cat' when 2 then 'Dog' else 'Chupacabra' end) typeName"
+          + " from pet p where p.r_owner_id is null order by p.id limit 1")
+  Optional<PetPersistable> findOneByOwnerIsNull();
 }

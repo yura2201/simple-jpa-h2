@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.util.CollectionUtils;
+
 /**
  * @author Yuriy Tsarkov (yurait6@gmail.com) on 20.09.2022
  */
@@ -48,14 +50,19 @@ public class Owner {
 
   public void setPets(Set<PetPersistable> pets) {
     this.pets = pets;
+    if (!CollectionUtils.isEmpty(pets)) {
+      this.pets.forEach(pet -> pet.setOwner(this));
+    }
   }
 
   public void addPet(PetPersistable pet) {
+    pet.setOwner(this);
     Optional.ofNullable(pets).orElse(new HashSet<>(1)).add(pet);
   }
 
   public boolean removePet(PetPersistable pet) {
     if (Objects.nonNull(pet)) {
+      pet.setOwner(null);
       return pets.remove(pet);
     }
     return false;
@@ -79,17 +86,21 @@ public class Owner {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
+    if (this == o) {
       return true;
-    if (o == null || getClass() != o.getClass())
+    }
+    if (o == null || getClass() != o.getClass()) {
       return false;
+    }
 
     Owner owner = (Owner) o;
 
-    if (getId() != null ? !getId().equals(owner.getId()) : owner.getId() != null)
+    if (getId() != null ? !getId().equals(owner.getId()) : owner.getId() != null) {
       return false;
-    if (getLastName() != null ? !getLastName().equals(owner.getLastName()) : owner.getLastName() != null)
+    }
+    if (getLastName() != null ? !getLastName().equals(owner.getLastName()) : owner.getLastName() != null) {
       return false;
+    }
     return getFirstName() != null ? getFirstName().equals(owner.getFirstName()) : owner.getFirstName() == null;
   }
 

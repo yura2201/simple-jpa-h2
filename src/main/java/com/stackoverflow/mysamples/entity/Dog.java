@@ -1,6 +1,7 @@
 package com.stackoverflow.mysamples.entity;
 
 import javax.persistence.Entity;
+import lombok.EqualsAndHashCode;
 
 import com.stackoverflow.mysamples.dictionary.PetTypes;
 

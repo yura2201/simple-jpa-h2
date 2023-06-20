@@ -1,0 +1,27 @@
+server:
+  port: 8097
+
+spring:
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always # set to 'never' when flyway initialization is used
+    #      schema: classpath:sql/quartz-init.sql # quote when flyway initialization is used
+    properties:
+      org.quartz.jobStore:
+        driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+  h2:
+    console:
+      enabled: true
+
+scheduler:
+  config:
+    petParams:
+      repeat-count: 2 #times
+      repeat-interval: 3 #sec
+    ownerParams:
+      repeat-count: 20 #times
+      repeat-interval: 10 #sec
