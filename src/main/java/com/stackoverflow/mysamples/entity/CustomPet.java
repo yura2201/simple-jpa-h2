@@ -1,6 +1,6 @@
 package com.stackoverflow.mysamples.entity;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 /**
  * @author Yuriy Tsarkov (yurait6@gmail.com) on 19.09.2022

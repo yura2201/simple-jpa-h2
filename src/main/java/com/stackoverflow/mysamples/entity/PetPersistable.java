@@ -1,7 +1,7 @@
 package com.stackoverflow.mysamples.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * @author Yuriy Tsarkov (yurait6@gmail.com) on 19.09.2022

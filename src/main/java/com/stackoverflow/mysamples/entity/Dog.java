@@ -1,6 +1,6 @@
 package com.stackoverflow.mysamples.entity;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 import com.stackoverflow.mysamples.dictionary.PetTypes;
 
