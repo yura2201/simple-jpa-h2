@@ -1,4 +1,4 @@
 # simple-jpa-h2
-https://github.com/github/yura2201/simple-jpa-h2/actions/workflows/maven.yml/badge.svg
+[![Java CI with Maven](https://github.com/yura2201/simple-jpa-h2/actions/workflows/maven.yml/badge.svg)](https://github.com/yura2201/simple-jpa-h2/actions/workflows/maven.yml)
 
 Demonstrates some Hibernate and JPA features
