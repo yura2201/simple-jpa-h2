@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  service:
+    image: yurait6/debug-simplie-jpa-h2
+    environment:
+      DEBUG: true
+      DEBUG_PORT: 8090
+    ports:
+      - "8090:8090"
+      - "8097:8097"
